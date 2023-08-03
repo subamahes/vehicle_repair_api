@@ -1,0 +1,173 @@
+{
+	"info": {
+		"_postman_id": "10cacb7c-6a75-4478-a435-b697b4ed8aa2",
+		"name": "vehicle",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "customer-details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/customer-details",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"customer-details"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "customer-details-vehicle-number",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/customer-details/ KA-03-HA-4985",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"customer-details",
+						" KA-03-HA-4985"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "bill",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/bill/?vehicle_owner_name=suba&service=water wash",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"bill",
+						""
+					],
+					"query": [
+						{
+							"key": "vehicle_owner_name",
+							"value": "suba"
+						},
+						{
+							"key": "service",
+							"value": "water wash"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "first-bill",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/new-bill/?vehicle_number= KA-03-HA-4985&service=water wash",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"new-bill",
+						""
+					],
+					"query": [
+						{
+							"key": "vehicle_number",
+							"value": " KA-03-HA-4985"
+						},
+						{
+							"key": "service",
+							"value": "water wash"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "customer-details",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"date_of_service\": \"2023-05-30\",\r\n        \"phone_number\": 6965874123,\r\n        \"vehicle_model_number\": \"EP3 type R\",\r\n        \"vehicle_number\": \" KA-03-HA-4985\",\r\n        \"vehicle_owner_name\": \"subha\",\r\n        \"vehicle_type\": 4\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/customer-details",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"customer-details"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vehicle-service",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/vehicle-services",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"vehicle-services"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
