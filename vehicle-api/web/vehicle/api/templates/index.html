@@ -63,6 +63,35 @@
 					console.log(error);
 				}
 			});
+
+			var vehicle_number = document.getElementById('vehicle_number1').innerHTML;
+			var vehicle_type = document.getElementById('vehicle_type1').innerHTML;
+			var vehicle_model_number = document.getElementById('vehicle_model_number1').innerHTML;
+			var vehicle_owner_name = document.getElementById('vehicle_owner_name1').innerHTML;
+			var phone_number = document.getElementById('phone_number1').innerHTML;
+			
+			var date = new Date();
+			var current_date = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+ date.getDate();
+			var date_of_service = current_date;
+
+			$.ajax({
+				url: 'http://127.0.0.1:5000/customer-details',
+				type: 'POST',
+				contentType: 'application/json',
+				data: JSON.stringify({ 'vehicle_number': vehicle_number,
+						'vehicle_type' : vehicle_type,
+						'vehicle_model_number' : vehicle_model_number,
+						'vehicle_owner_name' : vehicle_owner_name,
+						'phone_number' : phone_number,
+						'date_of_service' : date_of_service
+					}),
+				success: function(response) {
+					console.log(response);
+				},
+				error: function(error) {
+					console.log(error);
+				}
+			});
 		}
 		function nextPage() {
 
