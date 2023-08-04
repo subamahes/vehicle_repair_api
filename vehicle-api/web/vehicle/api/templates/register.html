@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JavaScript to Python Example</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<style>
+	p{
+	   display: inline;
+	}
+ </style>
+<body>
+	<center>
+		<form>
+			<div class="form-group">
+			  <label for="vehicle_number">VEHICLE NUMBER</label>
+			  <input type="text" class="form-control" id="vehicle_number" placeholder="Enter VEHICLE NUMBER">
+			</div>
+			<br>
+			<div class="form-group">
+			  <label for="vehicle_type">VEHICLE TYPE</label>
+			  <input type="text" class="form-control" id="vehicle_type" placeholder="vehicle_type">
+			</div>
+			
+			<br>
+			<div class="form-group">
+				<label for="vehicle_model_number">VEHICLE MODEL NUMBER</label>
+				<input type="text" class="form-control" id="vehicle_model_number" placeholder="vehicle_model_number">
+			</div>
+			<br>
+			<div class="form-group">
+				<label for="vehicle_owner_name">VEHICLE OWNER NAME</label>
+				<input type="text" class="form-control" id="vehicle_owner_name" placeholder="vehicle_owner_name">
+			</div>
+			<br>
+			<div class="form-group">
+				<label for="phone_number">PHONE NUMBER</label>
+				<input type="number" class="form-control" id="phone_number" placeholder="phone_number">
+			</div>
+			<br>
+			<div class="form-group">
+				<label for="date_of_service">PHONE NUMBER</label>
+				<input type="date" class="form-control" id="date_of_service" placeholder="date_of_service">
+			</div>
+		</form>
+		<br>
+			<button onclick="sendData()">REGISTER</button><br>
+		  
+		<p>vehicle number : </p> <p id="vehicle_number1"></p><br>
+		<p>vehicle type : </p> <p id="vehicle_type1"></p><br>
+		<p>vehicle model number : </p> <p id="vehicle_model_number1"></p><br>
+		<p>vehicle owner name : </p> <p id="vehicle_owner_name1"></p><br>
+		<p>phone number : </p> <p id="phone_number1"></p><br>
+		<p>date of service : </p> <p id="date_of_service1"></p><br>
+
+		<br>
+			<button onclick="nextPage()">NEXT</button><br>
+
+	</center>
+	<script>
+		function sendData() {
+
+			var vehicle_number = document.getElementById('vehicle_number').value;
+			var vehicle_type = document.getElementById('vehicle_type').value;
+			var vehicle_model_number = document.getElementById('vehicle_model_number').value;
+			var vehicle_owner_name = document.getElementById('vehicle_owner_name').value;
+			var phone_number = document.getElementById('phone_number').value;
+			var date_of_service = document.getElementById('date_of_service').value;
+
+			$.ajax({
+				url: 'http://127.0.0.1:5000/customer-details',
+				type: 'POST',
+				contentType: 'application/json',
+				data: JSON.stringify({ 'vehicle_number': vehicle_number,
+						'vehicle_type' : vehicle_type,
+						'vehicle_model_number' : vehicle_model_number,
+						'vehicle_owner_name' : vehicle_owner_name,
+						'phone_number' : phone_number,
+						'date_of_service' : date_of_service
+					}),
+				success: function(response) {
+					console.log(response);
+					if(response == 0){
+						location.href="http://127.0.0.1:5000/customer-details/register";
+					}
+					else{
+						document.getElementById('vehicle_number1').innerHTML = response[0].base_details.vehicle_number;
+						document.getElementById('vehicle_type1').innerHTML = response[0].base_details.vehicle_type;
+						document.getElementById('vehicle_model_number1').innerHTML = response[0].base_details.vehicle_model_number;
+						document.getElementById('vehicle_owner_name1').innerHTML = response[0].base_details.vehicle_owner_name;
+						document.getElementById('phone_number1').innerHTML = response[0].base_details.phone_number;
+						document.getElementById('date_of_service1').innerHTML = response[1].date_of_service;
+					}
+				},
+				error: function(error) {
+					console.log(error);
+				}
+			});
+		}
+		function nextPage() {
+
+			var bill = 0;
+			var vehicle_number = document.getElementById('vehicle_number1').innerHTML;
+			var vehicle_owner_name = document.getElementById('vehicle_owner_name1').innerHTML;
+
+			localStorage.setItem('vehicle_number', vehicle_number);
+			localStorage.setItem('vehicle_owner_name', vehicle_owner_name);
+			localStorage.setItem('bill', bill);
+
+			$.ajax({
+				url: 'http://127.0.0.1:5000/vehicle-services',
+				type: 'GET',
+				contentType: 'application/json',
+
+				success: function(response) {
+				console.log(response);
+
+				localStorage.setItem("services", JSON.stringify(response));
+				location.href="http://127.0.0.1:5000/services"
+
+				},
+				error: function(error) {
+				console.log(error);
+				}
+			});
+		}
+	</script>
+
+</body>
+</html>
+
+

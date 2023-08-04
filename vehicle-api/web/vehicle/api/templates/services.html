@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JavaScript to Python Example</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<style>
+	p{
+	   display: inline;
+	}
+ </style>
+ <script>
+	window.onload = function() {
+
+		var vehicle_number = localStorage.getItem('vehicle_number');
+		var vehicle_owner_name = localStorage.getItem('vehicle_owner_name');
+	
+
+		document.getElementById('vehicle_number').innerHTML = vehicle_number;
+		document.getElementById('vehicle_owner_name').innerHTML = vehicle_owner_name;
+		
+
+		var services = JSON.parse(localStorage.getItem("services"))
+		
+		var table = document.getElementById("myTable");
+		var i=j=0
+		for (let service in services)
+		{
+			i=i+1;
+			var row = table.insertRow(i);
+			for (let x in services[service]) {
+				var cell1 = row.insertCell(j);
+				cell1.innerHTML = services[service][x];
+				j = j +1
+			}
+			j=0
+		}
+	};
+  </script>
+<body>
+	<br><br>
+	<p>vehicle number : </p> <p id="vehicle_number"></p><br><br>
+	<p>vehicle owner name : </p> <p id="vehicle_owner_name"></p><br><br>
+	<center>
+		<table id="myTable">
+			<tr>
+				<TH>
+					S.No
+				</TH>
+				<th>
+					SERVICES
+				</th>
+				<TH>
+					COST
+				</TH>
+			</tr>
+			
+		</table>
+		<form>
+		
+			<div class="form-group">
+			  <label for="service">VEHICLE SERVICE : </label>
+			  <input type="text" class="form-control" id="service" placeholder="Enter VEHICLE SERVICE ">
+			</div>
+		
+			
+		</form>
+		<br>
+			<button onclick="sendData()">click</button><br>
+		  
+	</center>
+	<script>
+		function sendData() {
+
+			var bill = localStorage.getItem('bill');
+			var vehicle_number = document.getElementById('vehicle_number').innerHTML;
+			var vehicle_owner_name = document.getElementById('vehicle_owner_name').innerHTML;
+
+			var service = document.getElementById('service').value;
+
+			if (bill == 1){
+
+				$.ajax({
+				url: 'http://127.0.0.1:5000/bill/?vehicle_owner_name='+vehicle_owner_name+'&service='+service,
+				type: 'GET',
+				contentType: 'application/json',
+				success: function(response) {
+					console.log(response);
+					localStorage.setItem("response", JSON.stringify(response));
+					location.href="http://127.0.0.1:5000/bill"
+				},
+				error: function(error) {
+					console.log(error);
+				}
+			});
+
+		}
+		if (bill == 0){
+
+			$.ajax({
+			url: 'http://127.0.0.1:5000/new-bill/?vehicle_number='+vehicle_number+'&service='+service,
+			type: 'GET',
+			contentType: 'application/json',
+			success: function(response) {
+				console.log(response);
+				localStorage.setItem("response", JSON.stringify(response));
+				location.href="http://127.0.0.1:5000/bill"
+			},
+			error: function(error) {
+				console.log(error);
+			}
+			});
+
+		}
+		}
+		</script>
+
+</body>
+</html>
+
+

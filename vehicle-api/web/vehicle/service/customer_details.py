@@ -10,7 +10,7 @@ def service_customer_details():
 
 def service_customer_details_with_vehicle_number(vehilce_number):
     customer_details = select_details_with_vehicle_number(vehilce_number)
-    if customer_details is None:
+    if customer_details == []:
         return 0
     else:
         return (customer_details)

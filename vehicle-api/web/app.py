@@ -7,6 +7,7 @@ from vehicle.api import customer_details
 from vehicle.api import vehicle_services
 
 from vehicle.api import bill
+from vehicle.api import home
 
 app = Flask(__name__)
 
@@ -14,6 +15,8 @@ app.register_blueprint(customer_details.blueprint)
 
 app.register_blueprint(vehicle_services.blueprint)
 app.register_blueprint(bill.blueprint)
+
+app.register_blueprint(home.blueprint)
 
 @app.after_request
 def after_request(response):
@@ -29,4 +32,4 @@ def after_request(response):
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

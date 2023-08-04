@@ -56,6 +56,7 @@ def select_details_with_vehicle_number(vehicle_number):
                 " from"  
                 " vehicle.customer_details c" 
                 " where c.vehicle_number = %s" 
+                " order by c.date_of_service DESC"
                )
         conn = db_connection()
         result = []
@@ -66,24 +67,26 @@ def select_details_with_vehicle_number(vehicle_number):
             rows = cur.fetchall()
             columns = [desc[0] for desc in cur.description]
 
-            bas_detail = dict(
-                     base_details = dict(
-                        vehicle_number=rows[0][1],
-                        vehicle_type= rows[0][2],
-                        vehicle_model_number=rows[0][3],
-                        vehicle_owner_name = rows[0][4],
-                        phone_number = rows[0][5]
-                     )
-                )
-            result.append(bas_detail)
+            if rows != []:
 
-            for row in rows:
-                res = dict(
-                    vehicle_id = row[0],
-                    vehicle_number=row[1],
-                    date_of_service = row[6]
-                )
-                result.append(res)
+                bas_detail = dict(
+                        base_details = dict(
+                            vehicle_number=rows[0][1],
+                            vehicle_type= rows[0][2],
+                            vehicle_model_number=rows[0][3],
+                            vehicle_owner_name = rows[0][4],
+                            phone_number = rows[0][5]
+                        )
+                    )
+                result.append(bas_detail)
+
+                for row in rows:
+                    res = dict(
+                        vehicle_id = row[0],
+                        vehicle_number=row[1],
+                        date_of_service = row[6]
+                    )
+                    result.append(res)
 
         cur.close()
         conn.close()
@@ -139,25 +142,28 @@ def select_details_with_vehicle_owner_name(vehicle_owner_name):
             cur.execute(sql, (vehicle_owner_name,))
             rows = cur.fetchall()
             columns = [desc[0] for desc in cur.description]
+            
+            if rows != []:
 
-            bas_detail = dict(
-                     base_details = dict(
-                        vehicle_number=rows[0][1],
-                        vehicle_type= rows[0][2],
-                        vehicle_model_number=rows[0][3],
-                        vehicle_owner_name = rows[0][4],
-                        phone_number = rows[0][5]
-                     )
-                )
-            result.append(bas_detail)
+                bas_detail = dict(
+                        base_details = dict(
+                            vehicle_number=rows[0][0],
+                            vehicle_type= rows[0][2],
+                            vehicle_model_number=rows[0][3],
+                            vehicle_owner_name = rows[0][4],
+                            phone_number = rows[0][5]
+                        )
+                    )
+                result.append(bas_detail)
 
-            for row in rows:
-                res = dict(
-                    vehicle_id = row[0],
-                    vehicle_number=row[1],
-                    date_of_service = row[6]
-                )
-                result.append(res)
+                for row in rows:
+                    res = dict(
+                        vehicle_id = row[1],
+                        vehicle_number=row[0],
+                        date_of_service = row[6]
+                    )
+                    result.append(res)
+
         cur.close()
         conn.close()
 
