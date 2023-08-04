@@ -84,12 +84,12 @@
 						location.href="http://127.0.0.1:5000/customer-details/register";
 					}
 					else{
-						document.getElementById('vehicle_number1').innerHTML = response[0].base_details.vehicle_number;
-						document.getElementById('vehicle_type1').innerHTML = response[0].base_details.vehicle_type;
-						document.getElementById('vehicle_model_number1').innerHTML = response[0].base_details.vehicle_model_number;
-						document.getElementById('vehicle_owner_name1').innerHTML = response[0].base_details.vehicle_owner_name;
-						document.getElementById('phone_number1').innerHTML = response[0].base_details.phone_number;
-						document.getElementById('date_of_service1').innerHTML = response[1].date_of_service;
+						document.getElementById('vehicle_number1').innerHTML = response.vehicle_number;
+						document.getElementById('vehicle_type1').innerHTML = response.vehicle_type;
+						document.getElementById('vehicle_model_number1').innerHTML = response.vehicle_model_number;
+						document.getElementById('vehicle_owner_name1').innerHTML = response.vehicle_owner_name;
+						document.getElementById('phone_number1').innerHTML = response.phone_number;
+						document.getElementById('date_of_service1').innerHTML = response.date_of_service;
 					}
 				},
 				error: function(error) {
