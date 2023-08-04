@@ -29,4 +29,8 @@ def vehicle_services():
 @blueprint.route('/bill', methods=['GET'])
 def bill():
     return render_template('bill.html')
+
+@blueprint.route('/bill-first', methods=['GET'])
+def bill_first():
+    return render_template('bill_new.html')
     

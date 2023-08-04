@@ -1,43 +1,65 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>JavaScript to Python Example</title>
+	<title>vehicle repair and management</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <style>
 	p{
 	   display: inline;
 	}
+	table, th, td {
+		border: 1px solid black;
+		border-radius: 10px;
+	}
+	th, td{
+		padding-top: 10px;
+		padding-bottom: 10px;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
  </style>
 <script>
 	window.onload = function() {
+
 		var response = JSON.parse(localStorage.getItem("response"));
 		console.log(response);
-		var bill = localStorage.getItem('bill');
+
+		var vehicle_number = localStorage.getItem('vehicle_number');
 		
-		document.getElementById('vehicle_number1').innerHTML = response[0][0].base_details.vehicle_number;
-		document.getElementById('vehicle_type1').innerHTML = response[0][0].base_details.vehicle_type;
-		document.getElementById('vehicle_model_number1').innerHTML = response[0][0].base_details.vehicle_model_number;
-		document.getElementById('vehicle_owner_name1').innerHTML = response[0][0].base_details.vehicle_owner_name;
-		document.getElementById('phone_number1').innerHTML = response[0][0].base_details.phone_number;
-		document.getElementById('date_of_service1').innerHTML = response[0][1].date_of_service;
 
 		document.getElementById('cost').innerHTML = response[1].cost;
 		document.getElementById('gst').innerHTML = response[1].gst;
 		document.getElementById('pay_with_GST').innerHTML = response[1].pay_with_GST;
-		console.log(bill);
-		if(bill == 1){
-			document.getElementById('discount').innerHTML = response[1].discount;
-			document.getElementById('discount_amt').innerHTML = response[1].discount_amt;	
-			document.getElementById('pay_cost_after_discount').innerHTML = response[1].pay_cost_after_discount;
+		document.getElementById('discount').innerHTML = response[1].discount;
+		document.getElementById('discount_amt').innerHTML = response[1].discount_amt;	
+		document.getElementById('pay_cost_after_discount').innerHTML = response[1].pay_cost_after_discount;
 
-		}
-		else{
-			document.getElementById('discount').innerHTML = 0;
-			document.getElementById('discount_amt').innerHTML = 0;	
-			document.getElementById('pay_cost_after_discount').innerHTML = response[1].cost;
-		}
+		document.getElementById('vehicle_number1').innerHTML = response[0][0].vehicle_number;
+		document.getElementById('vehicle_type1').innerHTML = response[0][0].vehicle_type;
+		document.getElementById('vehicle_model_number1').innerHTML = response[0][0].vehicle_model_number;
+		document.getElementById('vehicle_owner_name1').innerHTML = response[0][0].vehicle_owner_name;
+		document.getElementById('phone_number1').innerHTML = response[0][0].phone_number;
+		document.getElementById('date_of_service1').innerHTML = response[0][0].date_of_service;
 		
+
+		var table = document.getElementById("myTable");
+		var i=1
+		for (let x of response[0]) {
+			console.log(x.vehicle_model_number)
+			var row = table.insertRow(i);
+			var cell1 = row.insertCell(0);
+			var cell2 = row.insertCell(1);
+			var cell3 = row.insertCell(2);
+			var cell4 = row.insertCell(3);
+			var cell5 = row.insertCell(4);
+			cell1.innerHTML = x.vehicle_id;
+			cell2.innerHTML = x.vehicle_number;
+			cell3.innerHTML = x.vehicle_type;
+			cell4.innerHTML = x.vehicle_model_number;
+			cell5.innerHTML = x.date_of_service;
+			i = i +1
+		}
 		
 	};
   </script>
@@ -63,6 +85,28 @@
 	<p>pay with GST : </p> <p id="pay_with_GST"></p><br><br>
 
 	<br>
+	<br>
+	<h1>OTHER DETAILS</h1>
+	<table id="myTable">
+		<tr>
+			<TH>
+				S.No
+			</TH>
+			<th>
+				VEHICLE NUMBER
+			</th>
+			<th>
+				VEHICLE TYPE
+			</th>
+			<th>
+				VEHICLE MODEL NUMBER
+			</th>
+			<th>
+				DATE OF SERVICE
+			</th>
+		</tr>
+		
+	</table>
 		</center>
 
 </body>

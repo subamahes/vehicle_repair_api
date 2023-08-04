@@ -122,8 +122,8 @@ def select_details_with_vehicle_number_for_date_of_service(vehicle_number):
 
 def select_details_with_vehicle_owner_name(vehicle_owner_name):
         sql = ("SELECT" 
-               " DISTINCT c.vehicle_number,"
-                " c.vehicle_id," 
+                " c.vehicle_id,"
+                " c.vehicle_number," 
                 " c.vehicle_type,"
                 " c.vehicle_model_number,"
                 " c.vehicle_owner_name," 
@@ -145,21 +145,14 @@ def select_details_with_vehicle_owner_name(vehicle_owner_name):
             
             if rows != []:
 
-                bas_detail = dict(
-                        base_details = dict(
-                            vehicle_number=rows[0][0],
-                            vehicle_type= rows[0][2],
-                            vehicle_model_number=rows[0][3],
-                            vehicle_owner_name = rows[0][4],
-                            phone_number = rows[0][5]
-                        )
-                    )
-                result.append(bas_detail)
-
                 for row in rows:
                     res = dict(
-                        vehicle_id = row[1],
-                        vehicle_number=row[0],
+                        vehicle_id = row[0],
+                        vehicle_number=row[1],
+                        vehicle_type= row[2],
+                        vehicle_model_number= row[3],
+                        vehicle_owner_name = row[4],
+                        phone_number = row[5],
                         date_of_service = row[6]
                     )
                     result.append(res)
