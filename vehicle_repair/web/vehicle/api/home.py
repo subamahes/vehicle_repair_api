@@ -14,7 +14,7 @@ blueprint = Blueprint('home' , __name__, template_folder="templates")
 # http://127.0.0.1:5000/
 #
 
-@blueprint.route('/', methods=['GET'])
+@blueprint.route('/home', methods=['GET'])
 def index():
     return render_template('index.html')
 

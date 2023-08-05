@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>vehicle repair and management</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <style>
 	p{
@@ -12,7 +13,8 @@
 	window.onload = function() {
 		var response = JSON.parse(localStorage.getItem("response"));
 		console.log(response);
-		
+
+		document.getElementById('service').innerHTML = response[1].service;
 		document.getElementById('cost').innerHTML = response[1].cost;
 		document.getElementById('gst').innerHTML = response[1].gst;
 		document.getElementById('pay_with_GST').innerHTML = response[1].pay_with_GST;
@@ -29,21 +31,27 @@
 		document.getElementById('pay_cost_after_discount').innerHTML = response[1].cost;
 
 	};
+
+	function nextPage() {
+		location.href="http://127.0.0.1:5000/home"
+		}
+
   </script>
 <body>
-	<center>
-		vehicle repair and management
-		<br><br>
+<center>
+	<h1>vehicle repair and management</h1>
+		<br>
 	<p>vehicle number : </p> <p id="vehicle_number1"></p><br><br>
 	<p>vehicle type : </p> <p id="vehicle_type1"></p><br><br>
 	<p>vehicle model number : </p> <p id="vehicle_model_number1"></p><br><br>
 	<p>vehicle owner name : </p> <p id="vehicle_owner_name1"></p><br><br>
 	<p>phone number : </p> <p id="phone_number1"></p><br><br>
-	<p>last date of service : </p> <p id="date_of_service1"></p><br><br>
+	<p>date of service : </p> <p id="date_of_service1"></p><br><br>
 	<br>
 	<br>
 	<h1>BILLING</h1>
 	<BR><BR>
+	<p>SERVICE : </p> <p id="service"></p><br><br>
 	<p>cost : </p> <p id="cost"></p><br><br>
 	<p>discount % : </p> <p id="discount"></p><br><br>
 	<p>discount amount : </p> <p id="discount_amt"></p><br><br>
@@ -52,6 +60,8 @@
 	<p>pay with GST : </p> <p id="pay_with_GST"></p><br><br>
 
 	<br>
+	<br>
+		<button onclick="nextPage()">HOME</button>
 		</center>
 
 </body>

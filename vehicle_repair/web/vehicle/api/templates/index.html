@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>vehicle repair and management</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <style>
 	p{
@@ -56,36 +57,31 @@
 						document.getElementById('vehicle_owner_name1').innerHTML = response[0].base_details.vehicle_owner_name;
 						document.getElementById('phone_number1').innerHTML = response[0].base_details.phone_number;
 						document.getElementById('date_of_service1').innerHTML = response[1].date_of_service;
+
+						var date = new Date();
+						var current_date = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+ date.getDate();
+						var date_of_service = current_date;
+
+						$.ajax({
+							url: 'http://127.0.0.1:5000/customer-details',
+							type: 'POST',
+							contentType: 'application/json',
+							data: JSON.stringify({ 'vehicle_number': response[0].base_details.vehicle_number,
+									'vehicle_type' : response[0].base_details.vehicle_type,
+									'vehicle_model_number' : response[0].base_details.vehicle_model_number,
+									'vehicle_owner_name' : response[0].base_details.vehicle_owner_name,
+									'phone_number' : response[0].base_details.phone_number,
+									'date_of_service' : date_of_service
+								}),
+							success: function(response) {
+								console.log(response);
+							},
+							error: function(error) {
+								console.log(error);
+							}
+						});
+
 					}
-				},
-				error: function(error) {
-					console.log(error);
-				}
-			});
-
-			var vehicle_number = document.getElementById('vehicle_number1').innerHTML;
-			var vehicle_type = document.getElementById('vehicle_type1').innerHTML;
-			var vehicle_model_number = document.getElementById('vehicle_model_number1').innerHTML;
-			var vehicle_owner_name = document.getElementById('vehicle_owner_name1').innerHTML;
-			var phone_number = document.getElementById('phone_number1').innerHTML;
-			
-			var date = new Date();
-			var current_date = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+ date.getDate();
-			var date_of_service = current_date;
-
-			$.ajax({
-				url: 'http://127.0.0.1:5000/customer-details',
-				type: 'POST',
-				contentType: 'application/json',
-				data: JSON.stringify({ 'vehicle_number': vehicle_number,
-						'vehicle_type' : vehicle_type,
-						'vehicle_model_number' : vehicle_model_number,
-						'vehicle_owner_name' : vehicle_owner_name,
-						'phone_number' : phone_number,
-						'date_of_service' : date_of_service
-					}),
-				success: function(response) {
-					console.log(response);
 				},
 				error: function(error) {
 					console.log(error);

@@ -14,6 +14,7 @@ def vehicle_repair_bill(vehicle_owner_name, service):
     pay = pay_cost + (cost*GST)
 
     cost_to_pay = dict(
+        service = service,
         cost = cost,
         discount = DISCOUNT,
         discount_amt = discount_amt,
@@ -37,6 +38,7 @@ def vehicle_repair_bill_first(service, vehicle_number):
         pay = cost + (cost*GST)
 
         cost_to_pay = dict(
+            service = service,
             cost = cost,
             gst = GST,
             pay_with_GST = pay

@@ -17,6 +17,7 @@ def service_customer_details_with_vehicle_number(vehilce_number):
     
 
 def post_service_customer_details(req_json):
+    print(req_json)
     customer_details = insert(req_json)
     
     return (customer_details)
